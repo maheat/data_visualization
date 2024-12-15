@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Visualization</title>
+  <link href="/css/output.css" rel="stylesheet"> <!-- Tailwind CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Embed Dataset as JSON -->
+    <script>
+        window.dataset = {{{dataset}}}; 
+        window.dataset._id = '{{datasetId}}'; <!-- Ensure datasetId is explicitly passed -->
+        console.log('Dataset passed to frontend:', window.dataset); <!-- Debug log -->
+    </script>
+    
+
+  <script src="/js/charts.js" defer></script>
+</head>
+<body class="bg-gray-800 text-white">
+  <div class="container mx-auto p-8">
+    <!-- Page Header -->
+    <h1 class="text-3xl font-bold mb-6">Visualize Dataset: {{dataset.fileName}}</h1>
+
+  
+
+    <!-- Canvas for Chart -->
+    <canvas id="chart" class="bg-gray-900 p-4 rounded-lg shadow-lg w-1/4 h-60 "></canvas>
+
+
+    <!-- Dropdowns for Chart Customization -->
+    <div class="mt-6">
+  <h3 class="text-xl font-semibold">Customize Your Chart</h3>
+  <div class="mt-4 space-y-4">
+    <!-- Dropdown for X-Axis -->
+    <label for="xColumn" class="block">
+      <span class="text-gray-300">X-Axis:</span>
+      <select id="xColumn" class="bg-gray-700 text-white px-4 py-2 rounded-lg w-full"></select>
+    </label>
+
+    <!-- Dropdown for Y-Axis -->
+    <label for="yColumn" class="block">
+      <span class="text-gray-300">Y-Axis:</span>
+      <select id="yColumn" class="bg-gray-700 text-white px-4 py-2 rounded-lg w-full"></select>
+    </label>
+
+    <!-- Chart Type -->
+    <label for="chartType" class="block">
+      <span class="text-gray-300">Chart Type:</span>
+      <select id="chartType" class="bg-gray-700 text-white px-4 py-2 rounded-lg w-full">
+        <option value="bar">Bar</option>
+        <option value="line">Line</option>
+        <option value="pie">Pie</option>
+        <option value="doughnut">Doughnut</option>
+      </select>
+    </label>
+
+    <!-- Color Picker -->
+    <label for="colorPicker" class="block">
+      <span class="text-gray-300">Chart Colors:</span>
+      <input id="colorPicker" type="color" value="#4caf50" class="bg-gray-700 text-white px-4 py-2 rounded-lg w-full">
+    </label>
+
+    <!-- Color Scheme Dropdown -->
+    <label for="colorScheme" class="block">
+    <span class="text-gray-300">Color Scheme (for Pie/Doughnut):</span>
+    <select id="colorScheme" class="bg-gray-700 text-white px-4 py-2 rounded-lg w-full">
+        <option value="single">Single Color</option>
+        <option value="dynamic">Dynamic (Random Colors)</option>
+        <option value="pastel">Pastel</option>
+        <option value="vivid">Vivid</option>
+    </select>
+    </label>
+
+
+    <!-- Warning Message -->
+    <div id="chartWarning" class="text-red-500 hidden mt-2"></div>
+
+    <!-- Generate Chart Button -->
+    <button id="generateChart" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-6 rounded-lg mt-4">
+      Generate Chart
+    </button>
+
+    <!-- Save Chart Button -->
+        <button id="saveChart" class="bg-blue-500 text-white font-semibold py-2 px-6 rounded-lg mt-4">
+          Save Chart
+        </button>
+  </div>
+</div>
+
+  </div>
+</body>
+</html>

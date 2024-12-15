@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload CSV</title>
+  <link href="/css/output.css" rel="stylesheet"> <!-- Tailwind CSS -->
+</head>
+<body class="bg-gray-800 text-white">
+  <div class="bg-gray-900 p-8 rounded-lg shadow-lg text-center">
+    <h1 class="text-3xl font-bold text-white mb-6">Upload Your CSV File</h1>
+    <p class="text-gray-300 mb-6">Select a CSV file to upload for data analysis. Ensure your file is properly formatted.</p>
+
+    <!-- Form for Uploading CSV -->
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="space-y-6">
+      <!-- File Input -->
+      <div>
+        <label for="csvFile" class="block text-lg font-semibold text-gray-200 mb-2">Choose a CSV File:</label>
+        <input
+          type="file"
+          name="csvFile"
+          id="csvFile"
+          accept=".csv"
+          required
+          class="block w-full text-gray-300 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:bg-indigo-600 file:text-white hover:file:bg-indigo-700"
+        />
+      </div>
+
+      <!-- Submit Button -->
+      <button
+        type="submit"
+        class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-6 rounded-lg transition-all"
+      >
+        Upload
+      </button>
+    </form>
+
+    <!-- Display Messages -->
+    {{#if successMessage}}
+      <div class="mt-4 text-green-400">{{successMessage}}</div>
+    {{/if}}
+    {{#if errorMessage}}
+      <div class="mt-4 text-red-400">{{errorMessage}}</div>
+    {{/if}}
+
+    <!-- Back to Dashboard -->
+    <div class="mt-6">
+      <a href="/dashboard" class="text-indigo-500 hover:underline">Back to Dashboard</a>
+    </div>
+  </div>
+</body>
+</html>

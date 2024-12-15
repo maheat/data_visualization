@@ -1,0 +1,88 @@
+{{#> layout}}
+  <div class="flex-1">
+    <!-- Profile Header -->
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold">Profile</h1>
+      <p class="mt-2 text-xl">Welcome, {{user.username}}!</p>
+    </header>
+
+    <!-- User Information -->
+    <section class="mt-8">
+      <h2 class="text-2xl font-semibold">Your Information</h2>
+      <ul class="mt-4 space-y-2">
+        <li class="text-lg"><strong>Name:</strong> {{user.name}}</li>
+        <li class="text-lg"><strong>Email:</strong> {{user.email}}</li>
+        <li class="text-lg"><strong>Last Login:</strong> {{user.lastLogin}}</li>
+      </ul>
+
+      <!-- Update Name Form -->
+      <form action="/profile/update-name" method="POST" class="mt-8">
+        <label for="name" class="block text-lg font-medium mb-2">Update Your Name</label>
+        <div class="flex space-x-4">
+          <input 
+            type="text" 
+            id="name" 
+            name="name" 
+            placeholder="Enter your name" 
+            value="{{user.name}}" 
+            class="px-4 py-2 bg-gray-700 text-white rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
+          />
+          <button 
+            type="submit" 
+            class="bg-indigo-600 text-white px-6 py-2 rounded-lg text-lg hover:bg-indigo-700"
+          >
+            Update
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Activity Summary -->
+    <section class="mt-8">
+      <h2 class="text-2xl font-semibold">Activity Summary</h2>
+      <ul class="mt-4 space-y-2">
+        <li class="text-lg"><strong>Uploaded Datasets:</strong> {{activity.datasetCount}}</li>
+        <li class="text-lg"><strong>Saved Charts:</strong> {{activity.chartCount}}</li>
+      </ul>
+    </section>
+
+    <!-- Uploaded Datasets -->
+    <section class="mt-8">
+      <h2 class="text-2xl font-semibold">Your Datasets</h2>
+      <ul class="mt-4 space-y-2">
+        {{#each uploadedDatasets}}
+          <li class="bg-gray-700 p-6 rounded-lg">
+            <strong class="block text-lg">{{this.fileName}}</strong>
+            <span class="text-sm text-gray-400">Uploaded on {{this.createdAt}}</span>
+            <a href="/visualize/{{this._id}}" class="bg-gray-600 text-white px-4 py-2 rounded-lg text-lg text-indigo-500 hover:underline mt-2 block">Visualize Dataset</a>
+          </li>
+        {{else}}
+          <li class="text-gray-400">No datasets uploaded yet.</li>
+        {{/each}}
+      </ul>
+    </section>
+
+    <!-- Saved Charts -->
+    <section class="mt-8">
+      <h2 class="text-2xl font-semibold mb-2">Saved Charts</h2>
+      <div class="mt-4">
+        {{#if savedCharts.length}}
+          <a href="/view-analysis"class="bg-gray-700 text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-blue-700 hover:shadow-lg   ">View Analysis</a>
+        {{else}}
+          <p class="text-gray-400">No saved charts yet.</p>
+        {{/if}}
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section class="mt-8">
+    <h2 class="text-2xl font-semibold">Settings</h2> <!-- Ensure controlled spacing -->
+            <form action="/logout" method="POST"> <!-- Keep it inline with default alignment -->
+                <button type="submit" class="bg-gray-700 text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-blue-700 hover:shadow-lg   ">
+                Log Out
+                </button>
+            </form>
+    </section>
+  </div>
+{{/layout}}

@@ -1,0 +1,67 @@
+{{#> layout}}
+<div class="flex-1">
+  <header class="mb-8">
+    <h1 class="text-3xl font-bold">Manual Data Entry</h1>
+    <p class="mt-2 text-xl">Enter your data points manually below to visualize them.</p>
+  </header>
+
+  {{#if errorMessage}}
+    <div class="bg-red-600 text-white px-4 py-2 rounded mb-4">
+      {{errorMessage}}
+    </div>
+  {{/if}}
+
+  <form id="manualEntryForm" action="/manual-entry" method="POST">
+  <div class="mb-4">
+    <label for="datasetName" class="block text-gray-300">Dataset Name</label>
+    <input
+      type="text"
+      id="datasetName"
+      name="datasetName"
+      class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg"
+      placeholder="e.g., Sales Data Jan 2024"
+      required
+    />
+  </div>
+    <!-- Input for X and Y Axis Labels -->
+    <div class="grid grid-cols-2 gap-4 mb-4">
+      <div>
+        <label for="xAxisLabel" class="block text-gray-300">X-Axis Label</label>
+        <input type="text" id="xAxisLabel" name="xAxisLabel" class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg" placeholder="e.g., Time">
+      </div>
+      <div>
+        <label for="yAxisLabel" class="block text-gray-300">Y-Axis Label</label>
+        <input type="text" id="yAxisLabel" name="yAxisLabel" class="w-full px-4 py-2 bg-gray-700 text-white rounded-lg" placeholder="e.g., Sales">
+      </div>
+    </div>
+   <br> <!-- Add a new line -->
+    <!-- Table for Data Points -->
+    <table id="dataTable" class="table-auto bg-gray-700 text-white w-full mb-4">
+      <thead>
+        <tr>
+          <th class="px-4 py-2">X-Axis Value</th>
+          <th class="px-4 py-2">Y-Axis Value</th>
+          <th class="px-4 py-2">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="dataBody">
+        <tr>
+          <td><input type="text" name="data[0][x]" class="px-4 py-2 w-full bg-gray-800 text-white rounded" placeholder="e.g., 1"></td>
+          <td><input type="text" name="data[0][y]" class="px-4 py-2 w-full bg-gray-800 text-white rounded" placeholder="e.g., 10"></td>
+          <td><button type="button" class="removeRow bg-red-500 px-4 py-2 rounded">Remove</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Add Row Button -->
+    <div class="mb-4">
+      <button type="button" id="addRow" class="bg-green-500 px-6 py-3 rounded-lg text-white">Add Row</button>
+    </div>
+
+    <!-- Save Button -->
+    <button type="submit" class="bg-indigo-600 text-white px-6 py-3 rounded-lg">Save Data</button>
+  </form>
+</div>
+
+<script src="/js/manualEntry.js" defer></script>
+{{/layout}}

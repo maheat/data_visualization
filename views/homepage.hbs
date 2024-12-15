@@ -1,0 +1,73 @@
+{{#> layout}}
+  <div class="flex-1">
+    <!-- Main Content of Homepage -->
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold">Interactive Data Exploration Tool</h1>
+      <p class="mt-2 text-xl">Hello, {{user.username}}. Explore your data and visualize trends.</p>
+
+      <!-- Dataset Search Form -->
+      <div class="mt-4 flex space-x-4">
+        <form action="/search-visualize" method="POST" class="flex w-full space-x-4">
+          <input 
+            type="text" 
+            name="datasetName" 
+            placeholder="Enter dataset name to visualize..." 
+            class="px-4 py-2 bg-gray-700 text-white rounded-lg w-full focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            required
+          />
+          <button 
+            type="submit" 
+            class="bg-gray-700 text-white px-6 py-2 rounded-lg text-lg font-medium hover:bg-blue-700 hover:shadow-lg focus:ring-2 focus:ring-blue-500 transition-all"
+          >
+            Visualize
+          </button>
+        </form>
+      </div>
+    </header>
+
+    <!-- Error Message -->
+    {{#if errorMessage}}
+      <div class="mt-2">
+        {{errorMessage}}
+      </div>
+    {{/if}}
+    
+
+    <section class="mt-8">
+      <h2 class="text-2xl font-semibold">Data Upload & Analysis</h2>
+      <p class="mt-2">Upload a CSV file or enter data manually to explore and analyze your datasets.</p>
+      <div class="mt-4 space-x-4">
+        <a href="/upload-csv" class="bg-indigo-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-indigo-700">Upload CSV</a>
+        <a href="/manual-entry" class="bg-gray-600 text-white px-6 py-3 rounded-lg text-lg hover:bg-gray-700">Manual Data Entry</a>
+      </div>
+    </section>
+
+    <section class="mt-8">
+      <h3 class="text-xl font-semibold">Visualize Your Data</h3>
+      <p class="mt-2">Once your data is uploaded, use our tools to visualize trends, distributions, and correlations.</p>
+      <a href="/view-analysis" class="bg-green-600 text-white px-6 py-3 rounded-lg text-lg mt-4 inline-block hover:bg-green-700">View Analysis</a>
+      
+    </section>
+
+    <section class="mt-8">
+  <h3 class="text-xl font-semibold">Uploaded Datasets</h3>
+  <ul class="mt-4 space-y-2">
+    {{#each recentDatasets}}
+      <li class="bg-gray-700 p-6 rounded-lg">
+        <strong class="block text-lg">{{this.fileName}}</strong> <!-- Display custom dataset name -->
+        <span class="text-sm text-gray-400">Uploaded on {{this.createdAt}}</span>
+        <a 
+          href="/visualize/{{this._id}}" 
+          class="mt-4 inline-block text-center bg-gray-600 text-white px-4 py-2 rounded-lg text-lg font-medium shadow-md hover:bg-indigo-700 hover:shadow-lg transition-all"
+        >
+          📊 Visualize Dataset
+        </a>
+      </li>
+    {{else}}
+      <li class="text-gray-400">No datasets uploaded yet.</li>
+    {{/each}}
+  </ul>
+</section>
+
+  </div>
+{{/layout}}
